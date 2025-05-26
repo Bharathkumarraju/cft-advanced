@@ -1,14 +1,26 @@
-
 Resources:
   MyS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
         BlockPublicPolicy: false
-        IgnorePublicAcls: false 
         RestrictPublicBuckets: false
+      BucketName: "bharathkumarraju-hanumans-bhajrang"
 
-
-        
+  MyS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MyS3Bucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: "*"
+            Action: "s3:GetObject"
+            Resource: !Sub "${MyS3Bucket.Arn}/*"
