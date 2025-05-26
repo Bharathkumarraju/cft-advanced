@@ -23,7 +23,7 @@ Resources:
   MyEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      AvailabilityZone: us-east-1a
+      AvailabilityZone: ap-south-1a
       ImageId: ami-0742b4e673072066f
       InstanceType: !Ref InstanceType
       SecurityGroups:
